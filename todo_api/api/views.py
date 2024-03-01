@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 
 
-def getRoute(request):
+def getRoutes(request):
     routes = [
         {
             'Endpoint': '/notes/',
