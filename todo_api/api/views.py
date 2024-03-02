@@ -52,3 +52,24 @@ def getTask(request, pk):
     task = Task.objects.get(id=pk)
     serializer = TaskSerializer(task, many=False)
     return Response(serializer.data)
+
+
+@api_view(['POST'])
+def createTask(request):
+    data = request.data
+    task = Task.objects.create(
+        body=data['body']
+    )
+    serializer = TaskSerializer(task, many=False)
+    return Response(serializer.data)
+
+@api_view(['PUT'])
+def updateTask(request, pk):
+    data = request.data
+
+    task = Task.objects.get(id=pk)
+    serializer = TaskSerializer(task, data=request.POST)
+    if serializer.is_valid():
+        serializer.save()
+        
+    return Response(serializer.data)
